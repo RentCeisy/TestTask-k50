@@ -2,7 +2,10 @@
 
 namespace task;
 
-class DataHandler {
+
+use task\lib\Task_Data_Handler;
+
+class DataHandler  implements Task_Data_Handler {
 
     private $fieldCount;
 
@@ -10,17 +13,19 @@ class DataHandler {
 
     private $combinationCount;
 
-    public function __construct($fieldCount, $chipCount)
-    {
+    private $fileHandler;
+
+    public function __construct($fieldCount, $chipCount) {
         $this->fieldCount = $fieldCount;
         $this->chipCount = $chipCount;
+        $this->fileHandler = FileHandler::getInstance();
         $this->calculateCombination();
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getCombinationCount() {
+    public function getCombinationCount(): int {
         return $this->combinationCount;
     }
 
@@ -34,21 +39,21 @@ class DataHandler {
     /**
      * @return int
      */
-    public function getFieldCount() {
+    public function getFieldCount(): int {
         return $this->fieldCount;
     }
 
     /**
      * @return int
      */
-    public function getChipCount() {
+    public function getChipCount(): int {
         return $this->chipCount;
     }
 
     /**
      * @return int
      */
-    public function calculateCombination() {
+    public function calculateCombination(): void {
         $this->combinationCount = $this->factorial($this->fieldCount) / ($this->factorial($this->chipCount) * $this->factorial($this->fieldCount - $this->chipCount));
     }
 
@@ -63,4 +68,10 @@ class DataHandler {
         return $result;
     }
 
+
+    public function presentCombination() {
+        for ($i = 1; $i < $this->fieldCount;) {
+
+        }
+    }
 }
