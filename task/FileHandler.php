@@ -10,17 +10,13 @@ class FileHandler {
 
     private $fileHandler;
 
-    public function __construct($fileName) {
-        $this->fileName = $fileName;
-    }
-
-    public static function getInstance($fileName = null)
+    public static function getInstance()
     {
         if (self::$instance != null) {
             return self::$instance;
         }
 
-        return new self($fileName);
+        return new self();
     }
 
     /**
@@ -36,6 +32,14 @@ class FileHandler {
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
+    }
+
+    /**
+     * @param mixed $fileName
+     */
+    public function setFileName($fileName): void
+    {
+        $this->fileName = $fileName;
     }
 
     public function closeFile(): void {
