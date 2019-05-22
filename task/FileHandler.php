@@ -4,11 +4,14 @@ namespace task;
 
 class FileHandler {
 
-    private static $instance = null;
+    private static $instance;
 
-    private $fileName;
+    private $fileName = 'text.txt';
 
     private $fileHandler;
+    public function __construct() {
+
+    }
 
     public static function getInstance()
     {

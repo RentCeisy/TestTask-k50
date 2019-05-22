@@ -6,10 +6,10 @@ class Task {
 
     private $fileHandler;
 
-    public function __construct($fieldsCount, $chipCount, $fileName)
+    public function __construct($fieldsCount, $chipCount)
     {
-        if($this->validate($fieldsCount, $chipCount, $fileName)) {
-            $this->dataHandler = new DataHandler((int)$fieldsCount, (int)$chipCount, $fileName);
+        if($this->validate($fieldsCount, $chipCount)) {
+            $this->dataHandler = new DataHandler((int)$fieldsCount, (int)$chipCount);
         } else {
            throw new \Exception('input error');
         }
@@ -20,8 +20,8 @@ class Task {
         $this->chipCount = $chipCount;
     }
 
-    public function validate($fieldsCount, $chipCount, $fileName) {
-        $isTrueType = is_numeric($fieldsCount) && is_numeric($chipCount) && is_string($fileName);
+    public function validate($fieldsCount, $chipCount) {
+        $isTrueType = is_numeric($fieldsCount) && is_numeric($chipCount);
         $isTrueNumber = (int)$fieldsCount > (int)$chipCount;
         return $isTrueNumber && $isTrueType;
     }

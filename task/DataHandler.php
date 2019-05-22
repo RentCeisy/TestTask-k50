@@ -29,12 +29,11 @@ class DataHandler  implements Task_Data_Handler {
         return $this->arrayValue;
     }
 
-    public function __construct($fieldCount, $chipCount, $fileName) {
+    public function __construct($fieldCount, $chipCount) {
         $this->fieldCount = $fieldCount;
         $this->chipCount = $chipCount;
         $this->setArrayValue();
         $this->fileHandler = FileHandler::getInstance();
-        $this->fileHandler->setFileName($fileName);
         $this->calculateCombination();
     }
 
