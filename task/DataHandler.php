@@ -76,10 +76,10 @@ class DataHandler  implements Task_Data_Handler {
     /**
      * @return int
      */
-    public function factorial($num): int {
+    public function factorial($num) {
         $result = 1;
         for($i = 1; $i <= $num; $i++) {
-            $result *= $i;
+            $result = bcmul($result, $i);
         }
         return $result;
     }
@@ -100,45 +100,8 @@ class DataHandler  implements Task_Data_Handler {
     public function presentCombination($arrayValue, $a, $b, $c = 0, $z = 0) {
         for ($i = 0 + $z; $i < $a - $b; ) {
             if ($c < $this->chipCount - 1) {
-                $arrayValue = $this->presentCombination1($arrayValue, $a, $b, $c+1, $z);
-                for($j = 0; $j < $a-$b-$c; $j++) {
-                    $arrayValue[$c + $a - $b + 1 + $j] = $this->signUnderline;
-                    $arrayValue[$c + 2 + $z + $j] = $this->signDollar;
-                }
-
-            }
-            $arrayValue[$c + $i] = $this->signUnderline;
-            $arrayValue[$c + ++$i] = $this->signDollar;
-            $stringValue = implode('', $arrayValue);
-            $this->fileHandler->saveDataToFile($stringValue);
-            $z++;
-        }
-        return $arrayValue;
-    }
-    public function presentCombination1($arrayValue, $a, $b, $c = 0, $z) {
-        for ($i = 0 + $z; $i < $a - $b; ) {
-            if ($c < $this->chipCount - 1) {
-                $arrayValue = $this->presentCombination2($arrayValue, $a, $b, $c+1, $z);
-                for($j = 0; $j < $a-$b-$c; $j++) {
-                    $arrayValue[$c + $a - $b + $b -1 + $j] = $this->signUnderline;
-                    $arrayValue[$c + 2 + $z + $j] = $this->signDollar;
-                }
-
-            }
-            $arrayValue[$c + $i] = $this->signUnderline;
-            $arrayValue[$c + ++$i] = $this->signDollar;
-            $stringValue = implode('', $arrayValue);
-            $this->fileHandler->saveDataToFile($stringValue);
-            $z++;
-        }
-
-        return $arrayValue;
-    }
-    public function presentCombination2($arrayValue, $a, $b, $c = 0, $z) {
-        for ($i = 0 + $z; $i < $a - $b; ) {
-            if ($c < $this->chipCount - 1) {
-                $arrayValue = $this->presentCombination2($arrayValue, $a, $b, $c+1, $z);
-                for($j = 0; $j < $a-$b-$c; $j++) {
+                $arrayValue = $this->presentCombination($arrayValue, $a, $b, $c+1, $z);
+                for($j = 0; $j < $b-$c-1; $j++) {
                     $arrayValue[$c + $a - $b + 1 + $j] = $this->signUnderline;
                     $arrayValue[$c + 2 + $z + $j] = $this->signDollar;
                 }
@@ -154,15 +117,19 @@ class DataHandler  implements Task_Data_Handler {
     }
 
     public function goMission() {
-        $this->fileHandler->openFile();
-        if($this->getCombinationCount() < 10) {
-            $this->fileHandler->saveDataToFile('менее 10 вариантов');
-        } else {
-            $this->fileHandler->saveDataToFile($this->getCombinationCount());
-            $this->fileHandler->saveDataToFile(implode($this->getArrayValue()));
-            $this->presentCombination($this->getArrayValue(), $this->getFieldCount(), $this->getChipCount());
+        try {
+            $this->fileHandler->openFile();
+            if($this->getCombinationCount() < 10) {
+                $this->fileHandler->saveDataToFile('менее 10 вариантов');
+            } else {
+                $this->fileHandler->saveDataToFile($this->getCombinationCount());
+                $this->fileHandler->saveDataToFile(implode($this->getArrayValue()));
+                $this->presentCombination($this->getArrayValue(), $this->getFieldCount(), $this->getChipCount());
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        } finally {
+            $this->fileHandler->closeFile();
         }
-        echo $this->getCombinationCount();
-        $this->fileHandler->closeFile();
     }
 }
