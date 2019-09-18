@@ -3,9 +3,9 @@
 namespace task;
 
 
-use task\lib\Task_Data_Handler;
+use task\lib\TaskDataHandler;
 
-class DataHandler  implements Task_Data_Handler {
+class DataHandler  implements TaskDataHandler {
 
     private $fieldCount;
 
@@ -29,7 +29,8 @@ class DataHandler  implements Task_Data_Handler {
         return $this->arrayValue;
     }
 
-    public function __construct($fieldCount, $chipCount) {
+    public function __construct($fieldCount, $chipCount) 
+    {
         $this->fieldCount = $fieldCount;
         $this->chipCount = $chipCount;
         $this->setArrayValue();
@@ -40,42 +41,48 @@ class DataHandler  implements Task_Data_Handler {
     /**
      * @return int
      */
-    public function getCombinationCount(): int {
+    public function getCombinationCount() 
+    {
         return $this->combinationCount;
     }
 
     /**
      * @param int $combinationCount
      */
-    public function setCombinationCount($combinationCount): void {
+    public function setCombinationCount($combinationCount) 
+    {
         $this->combinationCount = $combinationCount;
     }
 
     /**
      * @return int
      */
-    public function getFieldCount(): int {
+    public function getFieldCount() 
+    {
         return $this->fieldCount;
     }
 
     /**
      * @return int
      */
-    public function getChipCount(): int {
+    public function getChipCount() 
+    {
         return $this->chipCount;
     }
 
     /**
      * @return int
      */
-    public function calculateCombination(): void {
+    public function calculateCombination() 
+    {
         $this->combinationCount = $this->factorial($this->fieldCount) / ($this->factorial($this->chipCount) * $this->factorial($this->fieldCount - $this->chipCount));
     }
 
     /**
      * @return int
      */
-    public function factorial($num) {
+    public function factorial($num) 
+    {
         $result = 1;
         for($i = 1; $i <= $num; $i++) {
             $result = bcmul($result, $i);
@@ -83,7 +90,8 @@ class DataHandler  implements Task_Data_Handler {
         return $result;
     }
 
-    public function setArrayValue() {
+    public function setArrayValue() 
+    {
         $signDollar = "$";
         $signUnderline = '_';
         for($i = 0; $i < $this->fieldCount; $i++) {
@@ -96,7 +104,8 @@ class DataHandler  implements Task_Data_Handler {
     }
 
 
-    public function presentCombination($arrayValue, $a, $b, $c = 0, $z = 0) {
+    public function presentCombination($arrayValue, $a, $b, $c = 0, $z = 0) 
+    {
         for ($i = 0 + $z; $i < $a - $b; ) {
             if ($c < $this->chipCount - 1) {
                 $arrayValue = $this->presentCombination($arrayValue, $a, $b, $c+1, $z);
@@ -115,7 +124,8 @@ class DataHandler  implements Task_Data_Handler {
         return $arrayValue;
     }
 
-    public function goMission() {
+    public function goMission() 
+    {
         try {
             $this->fileHandler->openFile();
             if($this->getCombinationCount() < 10) {
