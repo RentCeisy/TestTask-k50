@@ -2,7 +2,8 @@
 
 namespace task\lib;
 
-interface Task_Data_Handler {
+interface TaskDataHandler 
+{
     public function factorial($num);
     public function calculateCombination();
     public function presentCombination($arrayValue, $a, $b, $c);
