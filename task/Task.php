@@ -20,7 +20,8 @@ class Task {
         $this->chipCount = $chipCount;
     }
 
-    public function validate($fieldsCount, $chipCount) {
+    public function validate($fieldsCount, $chipCount) 
+    {
         $isTrueType = is_numeric($fieldsCount) && is_numeric($chipCount);
         $isTrueNumber = (int)$fieldsCount > (int)$chipCount;
         return $isTrueNumber && $isTrueType;
@@ -30,6 +31,5 @@ class Task {
     {
         $this->dataHandler->goMission();
         die();
-
     }
 }
