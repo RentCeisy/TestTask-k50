@@ -30,6 +30,5 @@ class Task {
     public function start()
     {
         $this->dataHandler->goMission();
-        die();
     }
 }
