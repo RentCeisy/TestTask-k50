@@ -9,7 +9,8 @@ class FileHandler {
     private $fileName = 'text.txt';
 
     private $fileHandler;
-    public function __construct() {
+    public function __construct() 
+    {
 
     }
 
@@ -22,14 +23,13 @@ class FileHandler {
         return new self();
     }
 
-    /**
-     * @return string
-     */
-    public function getFileName(): string {
+    public function getFileName()
+    {
         return $this->fileName;
     }
 
-    public function openFile(): void {
+    public function openFile()
+    {
         try {
             $this->fileHandler = fopen($this->fileName, 'w');
         } catch (\Exception $e) {
@@ -37,19 +37,18 @@ class FileHandler {
         }
     }
 
-    /**
-     * @param mixed $fileName
-     */
-    public function setFileName($fileName): void
+    public function setFileName($fileName)
     {
         $this->fileName = $fileName;
     }
 
-    public function closeFile(): void {
+    public function closeFile()
+    {
         fclose($this->fileHandler);
     }
 
-    public function saveDataToFile($data): void {
+    public function saveDataToFile($data)
+    {
         fwrite($this->fileHandler, $data . PHP_EOL);
     }
 }
