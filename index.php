@@ -12,6 +12,7 @@ spl_autoload_register(function ($class) {
 try {
     $task = new Task($argv[1], $argv[2]);
     $task->start();
+    die();
 } catch(Exception $e) {
    die($e->getMessage());
 }
