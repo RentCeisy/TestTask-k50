@@ -21,10 +21,7 @@ class DataHandler  implements TaskDataHandler {
 
     private $signUnderline = '_';
 
-    /**
-     * @return array
-     */
-    public function getArrayValue(): array
+    public function getArrayValue()
     {
         return $this->arrayValue;
     }
@@ -38,49 +35,31 @@ class DataHandler  implements TaskDataHandler {
         $this->calculateCombination();
     }
 
-    /**
-     * @return int
-     */
     public function getCombinationCount() 
     {
         return $this->combinationCount;
     }
 
-    /**
-     * @param int $combinationCount
-     */
     public function setCombinationCount($combinationCount) 
     {
         $this->combinationCount = $combinationCount;
     }
 
-    /**
-     * @return int
-     */
     public function getFieldCount() 
     {
         return $this->fieldCount;
     }
 
-    /**
-     * @return int
-     */
     public function getChipCount() 
     {
         return $this->chipCount;
     }
 
-    /**
-     * @return int
-     */
     public function calculateCombination() 
     {
         $this->combinationCount = $this->factorial($this->fieldCount) / ($this->factorial($this->chipCount) * $this->factorial($this->fieldCount - $this->chipCount));
     }
 
-    /**
-     * @return int
-     */
     public function factorial($num) 
     {
         $result = 1;
@@ -102,7 +81,6 @@ class DataHandler  implements TaskDataHandler {
         }
 
     }
-
 
     public function presentCombination($arrayValue, $a, $b, $c = 0, $z = 0) 
     {
